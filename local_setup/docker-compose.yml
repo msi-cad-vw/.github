@@ -1,0 +1,43 @@
+services:
+
+    # Database Connection
+    mongodb:
+        container_name: mongodb
+        image: mongodb/mongodb-community-server:latest
+        ports:
+            - 27017:27017
+        networks:
+            - cloud_net
+        volumes:
+            - cloud_vol:/data/db
+
+    database:
+        container_name: database
+        restart: always
+        build:
+            context: database/Msi.Cad.Database
+            dockerfile: Msi.Cad.Database/database.Dockerfile
+        depends_on:
+            - mongodb
+        ports:
+            - 8080:8080
+        networks:
+            - cloud_net
+
+    # Frontend
+    frontend:
+        container_name: frontend
+        restart: always
+        build:
+            context: frontend-main/
+            dockerfile: frontend.Dockerfile
+        ports:
+            - 80:80
+        networks:
+            - cloud_net
+
+networks:
+    cloud_net:
+
+volumes:
+    cloud_vol:

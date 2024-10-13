@@ -30,3 +30,13 @@ For startup, the service is containerized using a Dockerfile and run in the Dock
 MongoDB is used as the database engine for persistent data storage.
 Like other services, MongoDB is directly installed to the Docker environment.
 This can be done using the official image [provided by Dockerhub](https://hub.docker.com/r/mongodb/mongodb-community-server).
+
+## Local Setup
+
+With the `docker-compose` you can easily start the application on a local machine. Therefore you have to do the following steps:
+1. Create a new folder (e.g. `Cloud`)
+2. Clone all repositories into this folder (`database`, `frontend-main` and `.github`)
+3. Copy the `docker-compose.yml` out of the `.github/local_setup` folder into the root folder (in our example `Cloud`): `cp .github/local_setup/docker_compose.yml .`
+4. Build the frontend-application (for further information check the `README.md` in `frontend-main`)
+5. Execute `docker compose up --build -d` and wait
+6. (optional) Copy the `restart.sh` out of the `.github/local_setup` and make the restart of the system really easy
