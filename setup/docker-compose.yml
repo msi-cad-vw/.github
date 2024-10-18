@@ -23,6 +23,8 @@ services:
             - 8080:8080
         networks:
             - cloud_net
+        environment:
+            - MSICAD_Database__ConnectionString=mongodb://mongodb:27017
 
     # Frontend
     frontend:
@@ -31,6 +33,9 @@ services:
         build:
             context: frontend-main/
             dockerfile: frontend.Dockerfile
+            # dockerfile: frontend_with_build.Dockerfile 
+            args:
+                REACT_APP_SERVER_ADDRESS: "http://localhost:8080"
         ports:
             - 80:80
         networks:

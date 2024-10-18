@@ -37,12 +37,39 @@ MongoDB is used as the database engine for persistent data storage.
 Like other services, MongoDB is directly installed to the Docker environment.
 This can be done using the official image [provided by Dockerhub](https://hub.docker.com/r/mongodb/mongodb-community-server).
 
-## Local Setup
+## Google Cloud
+
+The applications are running on the Google Cloud.
+
+Startup: Execute `create_images.sh`
+1. Database API Image
+   1. Builds database API-Image
+   2. Pushs the database API Image to Google Cloud
+   3. Runs the image and creats the container on Google Cloud with the environment variable for the MongoDB Connection
+2. Frontend
+   1. Builds frontend out of the Dockerfile with an creation argument (URL)
+   2. Pushs the frontend Image to Google Cloud
+   3. Runs the image and creates the container on Google Cloud
+
+### MongoDB
+
+The Database is hosted by MongoDB Atlas (MongoDB Cloud), deployed in Google Cloud.
+1. Setup a MongoDB on. Followed the official [Script](https://www.mongodb.com/resources/products/platform/mongodb-on-google-cloud)
+2. Add database user
+3. Create Database (Parking) and Collection (defects)
+4. Save Connection-String and use it for possible Connections
+5. Allow IP-Address (e.g. all IPs 0.0.0.0/0 or specific IP-Address)
+
+Little Helpers:
+- Check services: `gcloud run services describe msi-cad-vw-database`
+
+
+## Local Setup 
 
 With the `docker-compose.yml` file, you can easily start the application on a local machine. Therefore you have to do the following steps:
 1. Create a new folder (e.g. `Cloud`)
 2. Clone all repositories into this folder (`database`, `frontend-main` and `.github`)
-3. Copy the `docker-compose.yml` out of the `.github/local_setup` folder into the root folder (in our example `Cloud`): `cp .github/local_setup/docker_compose.yml .`
+3. Copy the `docker-compose.yml` out of the `.github/setup` folder into the root folder (in our example `Cloud`): `cp .github/setup/docker_compose.yml .`
 4. Build the frontend-application (for further information check the `README.md` in `frontend-main`)
 5. Execute `docker compose up --build -d` and wait
-6. (optional) Copy the `restart.sh` out of the `.github/local_setup` and make the restart of the system really easy
+6. (optional) Copy the `restart.sh` out of the `.github/setup` and make the restart of the system really easy
