@@ -1,11 +1,12 @@
 # Parking Management Cloud Application
 
-This SaaS application was built as part of the "Cloud Application Development" lecture at HTWG Konstanz.
-The repositories and sourcecode can be accessed [on GitHub](https://github.com/msi-cad-vw).
+This PaaS application was built as part of the lecture "Cloud Application Development" at HTWG Konstanz.
+A demo version is available [on Google Cloud](https://msi-cad-vw-frontend-103924362067.europe-west1.run.app).
+The repositories and sourcecode can be accessed [on GitHub](https://github.com/msi-cad-vw).  
 Students involved in the development:
 
 * [Maren Franke](mailto:ma452fra@htwg-konstanz.de)
-* [Elisha Leoncio Leon](mailto:el871leo@htwg-konstanz.de)
+* [Elisha Leoncio](mailto:el871leo@htwg-konstanz.de)
 * [Nico Riedlinger](mailto:ni911rie@htwg-konstanz.de)
 
 ## System Architecture
@@ -39,30 +40,36 @@ This can be done using the official image [provided by Dockerhub](https://hub.do
 
 ## Google Cloud
 
-The applications are running on the Google Cloud.
+The complete PaaS is hosted on Google Cloud.
+While the microservices must be deployed manually, MongoDB is hosted and configured by MongoDB Atlas on Google Cloud.
 
-Startup: Execute `create_images.sh`
+### Microservices
+
+The microservices are run on Google Cloud.
+For startup, first make sure to enter valid host addresses as environment variables in the script `google_cloud_push.sh`.
+After that, execute this script and the services will be built and deployed to Google Cloud automatically.
+
 1. Database API Image
    1. Builds database API-Image
-   2. Pushs the database API Image to Google Cloud
-   3. Runs the image and creats the container on Google Cloud with the environment variable for the MongoDB Connection
+   2. Pushes the database API Image to Google Cloud
+   3. Runs the image and creates the container on Google Cloud with the environment variable for the MongoDB Connection
 2. Frontend
-   1. Builds frontend out of the Dockerfile with an creation argument (URL)
-   2. Pushs the frontend Image to Google Cloud
+   1. Builds frontend out of the Dockerfile with a creation argument (URL)
+   2. Pushes the frontend Image to Google Cloud
    3. Runs the image and creates the container on Google Cloud
 
 ### MongoDB
 
 The Database is hosted by MongoDB Atlas (MongoDB Cloud), deployed in Google Cloud.
-1. Setup a MongoDB on. Followed the official [Script](https://www.mongodb.com/resources/products/platform/mongodb-on-google-cloud)
-2. Add database user
-3. Create Database (Parking) and Collection (defects)
-4. Save Connection-String and use it for possible Connections
-5. Allow IP-Address (e.g. all IPs 0.0.0.0/0 or specific IP-Address)
+
+1. Setup a MongoDB by following the official [Script](https://www.mongodb.com/resources/products/platform/mongodb-on-google-cloud)
+2. Add a database user
+3. Create a Database (i. e. "Parking") and a Collection (i. e. "defects")
+4. Save the connection string and use it for possible connections
+5. Allow IP-Address(es) (e. g. 0.0.0.0/0 for all IPs or enter a specific IP-Address)
 
 Little Helpers:
 - Check services: `gcloud run services describe msi-cad-vw-database`
-
 
 ## Local Setup 
 
