@@ -9,15 +9,13 @@ Students involved in the development:
 * [Elisha Leoncio](mailto:el871leo@htwg-konstanz.de)
 * [Nico Riedlinger](mailto:ni911rie@htwg-konstanz.de)
 
+
 ## System Architecture
 
 The system's architecture is split into Frontend and Backend, consisting of several microservices.
-Also part of the backend is a MongoDB database for persistent data storage.
+Also part of the backend is a NoSQL database, which
 
-![Architecture](architecture.png)
-
-Every service is containerized and run in Docker environment.
-The underlying operating system is Ubuntu 22.04.
+![Architecture](architecture_cloud.png)
 
 ### Frontend Service
 
@@ -34,9 +32,14 @@ For startup, the service is containerized using a Dockerfile and run in the Dock
 
 ### Database
 
-MongoDB is used as the database engine for persistent data storage.
-Like other services, MongoDB is directly installed to the Docker environment.
-This can be done using the official image [provided by Dockerhub](https://hub.docker.com/r/mongodb/mongodb-community-server).
+The database is a "NoSQL"-Database build out of the collection "defects" with the documents for the different reports.
+An example defect-report document looks like this:
+
+TODO:
+```json
+
+
+```
 
 ## Google Cloud
 
@@ -49,6 +52,7 @@ The microservices are run on Google Cloud.
 For startup, first make sure to enter valid host addresses as environment variables in the script `google_cloud_push.sh`.
 After that, execute this script and the services will be built and deployed to Google Cloud automatically.
 
+Startup: Execute `google_cloud_push.sh`
 1. Database API Image
    1. Builds database API-Image
    2. Pushes the database API Image to Google Cloud
@@ -58,25 +62,20 @@ After that, execute this script and the services will be built and deployed to G
    2. Pushes the frontend Image to Google Cloud
    3. Runs the image and creates the container on Google Cloud
 
-### MongoDB
+### Firestore
 
-The Database is hosted by MongoDB Atlas (MongoDB Cloud), deployed in Google Cloud.
+The database is not outsourced to a "NoSQL" in Firebase on Google Cloud.
 
-1. Setup a MongoDB by following the official [Script](https://www.mongodb.com/resources/products/platform/mongodb-on-google-cloud)
-2. Add a database user
-3. Create a Database (i. e. "Parking") and a Collection (i. e. "defects")
-4. Save the connection string and use it for possible connections
-5. Allow IP-Address(es) (e. g. 0.0.0.0/0 for all IPs or enter a specific IP-Address)
+To setup the database on Google, the following steps has to be done, based on following [Description](https://firebase.google.com/docs/firestore/quickstart?hl=de)
+1. Setup Firestore Database (Name: `(default)` (no extra costs))
+2. Setup Development Environment:
+   1. Create "Dienstkonto" for the Project
+   2. Save the data in a local file and set `export GOOGLE_APPLICATION_CREDENTIALS="KEY_PATH"`
+3. Configure everything in the C# Code
 
-Little Helpers:
-- Check services: `gcloud run services describe msi-cad-vw-database`
+### Object Storage
 
-## Local Setup 
+Objects (like images) are stored in the object storage.
 
-With the `docker-compose.yml` file, you can easily start the application on a local machine. Therefore you have to do the following steps:
-1. Create a new folder (e.g. `Cloud`)
-2. Clone all repositories into this folder (`database`, `frontend-main` and `.github`)
-3. Copy the `docker-compose.yml` out of the `.github/setup` folder into the root folder (in our example `Cloud`): `cp .github/setup/docker_compose.yml .`
-4. Build the frontend-application (for further information check the `README.md` in `frontend-main`)
-5. Execute `docker compose up --build -d` and wait
-6. (optional) Copy the `restart.sh` out of the `.github/setup` and make the restart of the system really easy
+To setup the object storage (buckets), the following steps has to be done:
+1. Create a "msi-cad-vw-bucket"
