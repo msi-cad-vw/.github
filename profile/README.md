@@ -13,7 +13,7 @@ Students involved in the development:
 ## System Architecture
 
 The system's architecture is split into Frontend and Backend, consisting of several microservices.
-Also part of the backend is a NoSQL database, which
+Also part of the backend is a NoSQL database, hosted by Google Cloud Firestore.
 
 ![Architecture](architecture_cloud.png)
 
@@ -32,13 +32,20 @@ For startup, the service is containerized using a Dockerfile and run in the Dock
 
 ### Database
 
-The database is a "NoSQL"-Database build out of the collection "defects" with the documents for the different reports.
-An example defect-report document looks like this:
+The database is a "NoSQL"-Database made up of the collection "defects" with the documents for the different reports.
+An example defect document looks like this:
 
-TODO:
 ```json
-
-
+{
+  "Id": "670fad0c5f0077e4f8cf7633",
+  "Title": "Einfahrtsschranke defekt",
+  "Description": "Die Einfahrtsschranke öffnet sich nicht ordnugsgemäß.",
+  "Date": "2024-10-28T12:09:48.462Z",
+  "Status": 10,
+  "Object": "Einfahrtsschranke",
+  "Location": "Einfahrt Nord",
+  "ImageName": "670fad0c5f0077e4f8cf7633"
+}
 ```
 
 ## Google Cloud
@@ -53,40 +60,40 @@ For startup, first make sure to enter valid host addresses as environment variab
 After that, execute this script and the services will be built and deployed to Google Cloud automatically.
 
 Startup: Execute `google_cloud_push.sh`
-1. Database API Image
-   1. Builds database API-Image
-   2. Pushes the database API Image to Google Cloud
-   3. Runs the image and creates the container on Google Cloud with the environment variable for the MongoDB Connection
-2. Frontend
-   1. Builds frontend out of the Dockerfile with a creation argument (URL)
-   2. Pushes the frontend Image to Google Cloud
-   3. Runs the image and creates the container on Google Cloud
+1. Database Service
+   1. Builds Database API Service Image
+   2. Pushes the built Image to Google Cloud
+   3. Runs the Image and creates the container on Google Cloud
+2. Frontend Service
+   1. Builds the Frontend Image based on the Dockerfile with a creation argument (URL)
+   2. Pushes the Frontend Image to Google Cloud
+   3. Runs the Image and creates the container on Google Cloud
 
 ### Firestore
 
 The database is not outsourced to a "NoSQL" in Firebase on Google Cloud.
 
-To setup the database on Google, the following steps has to be done, based on following [Description](https://firebase.google.com/docs/firestore/quickstart?hl=de)
-1. Setup Firestore Database (Name: `(default)` (no extra costs))
+To setup the database on Google, the following steps have to be done, based on this [description](https://firebase.google.com/docs/firestore/quickstart).
+1. Setup Firestore Database (Name `(default)` for no extra costs)
 2. Setup Development Environment:
    1. Configure local: `gcloud auth application-default login`
-   2. Save the data in a local file and set `export GOOGLE_APPLICATION_CREDENTIALS="KEY_PATH"`
+   2. Save the data in a local file and execute `export GOOGLE_APPLICATION_CREDENTIALS="KEY_PATH"` with `KEY_PATH` being the path to this file.
    3. Copy the file to a path, that can be linked as `env-variable` in the Docker-Compose or the `execute_locally.sh`
 3. Configure everything in the `C#` Code
 
 ### Object Storage
 
-Objects (like images) are stored in the object storage.
+Large files (i. e. images) are persistently stored in Google Object Storage.
 
-To setup the object storage (buckets), the following steps has to be done:
-1. Create a "msi-cad-vw-bucket"
-2. Add a service-account with the Role `Storage Object Viewer` (and a `Owner` Role (not best practice))
-3. Add a key to the service-account and download the `JSON-File`
+To setup the object storage (buckets), the following steps have to be done:
+1. Create a bucket: `msi-cad-vw-bucket`
+2. Add a Service Account with the Role `Storage Object Viewer` (and an `Owner` Role (not best practice))
+3. Add a key to the Service Account and download the `JSON-File`
 4. Local setup: 
-   1. Link the Service account with the environment variable, pointing on the file
+   1. Link the Service account with the environment variable, pointing to the file
    2. Start the database-container with: `docker run --volume /home/maren/.config/gcloud:/var/lib --env GOOGLE_APPLICATION_CREDENTIALS=/var/lib/application_default_credentials.json --env GOOGLE_SERVICE_ACCOUNT_CREDENTIALS=/var/lib/msi-cad-vw-private-key.json  -p 8080:8080 cloud-database`
 5. Setup in Cloud:
    1. Configure a secret with the `private-key` (JSON-File)
    2. Set the secret as a volume: https://cloud.google.com/run/docs/configuring/services/secrets#console
-   3. optional: Set an environment variable to the volume
-   4. Link the Service account to the `gcloud-volume`: path: `mnt/secret/msi-cad-vw-secret`
+   3. Optional: Set an environment variable to the volume
+   4. Link the Service account to the `gcloud-volume` path: `mnt/secret/msi-cad-vw-secret`
