@@ -24,7 +24,10 @@ services:
         networks:
             - cloud_net
         environment:
-            - MSICAD_Database__ConnectionString=mongodb://mongodb:27017
+            - GOOGLE_APPLICATION_CREDENTIALS=/var/lib/application_default_credentials.json
+            - GOOGLE_SERVICE_ACCOUNT_SECRET=/var/lib/msi-cad-vw-private-key.json
+        volumes:
+            - /home/maren/.config/gcloud:/var/lib
 
     # Frontend
     frontend:
@@ -32,8 +35,8 @@ services:
         restart: always
         build:
             context: frontend-main/
-            dockerfile: frontend.Dockerfile
-            # dockerfile: frontend_with_build.Dockerfile 
+            # dockerfile: frontend.Dockerfile
+            dockerfile: frontend_with_build.Dockerfile 
             args:
                 REACT_APP_SERVER_ADDRESS: "http://localhost:8080"
         ports:

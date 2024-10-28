@@ -69,9 +69,10 @@ The database is not outsourced to a "NoSQL" in Firebase on Google Cloud.
 To setup the database on Google, the following steps has to be done, based on following [Description](https://firebase.google.com/docs/firestore/quickstart?hl=de)
 1. Setup Firestore Database (Name: `(default)` (no extra costs))
 2. Setup Development Environment:
-   1. Create "Dienstkonto" for the Project
+   1. Configure local: `gcloud auth application-default login`
    2. Save the data in a local file and set `export GOOGLE_APPLICATION_CREDENTIALS="KEY_PATH"`
-3. Configure everything in the C# Code
+   3. Copy the file to a path, that can be linked as `env-variable` in the Docker-Compose or the `execute_locally.sh`
+3. Configure everything in the `C#` Code
 
 ### Object Storage
 
@@ -79,3 +80,13 @@ Objects (like images) are stored in the object storage.
 
 To setup the object storage (buckets), the following steps has to be done:
 1. Create a "msi-cad-vw-bucket"
+2. Add a service-account with the Role `Storage Object Viewer` (and a `Owner` Role (not best practice))
+3. Add a key to the service-account and download the `JSON-File`
+4. Local setup: 
+   1. Link the Service account with the environment variable, pointing on the file
+   2. Start the database-container with: `docker run --volume /home/maren/.config/gcloud:/var/lib --env GOOGLE_APPLICATION_CREDENTIALS=/var/lib/application_default_credentials.json --env GOOGLE_SERVICE_ACCOUNT_CREDENTIALS=/var/lib/msi-cad-vw-private-key.json  -p 8080:8080 cloud-database`
+5. Setup in Cloud:
+   1. Configure a secret with the `private-key` (JSON-File)
+   2. Set the secret as a volume: https://cloud.google.com/run/docs/configuring/services/secrets#console
+   3. optional: Set an environment variable to the volume
+   4. Link the Service account to the `gcloud-volume`: path: `mnt/secret/msi-cad-vw-secret`
