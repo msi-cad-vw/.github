@@ -29,7 +29,7 @@ No code from the package is included in the source code of the microservices.
 ### Frontend Service
 
 The Frontend Service is running in a mostly environment-agnostic configuration.
-Single settings, like the backend host address, can be changed at runtime using environment variables.
+Single settings, like the backend host address, can be changed through a new start of the application
 
 ### Backend Service
 
@@ -73,6 +73,9 @@ This way, every microservice can access the data or files through a network inte
 ## VII. Port binding
 
 > Export services via port binding
+
+The port binding in the production system running on Google Cloud is done by Google Run.
+Inside the containers, the port `0.0.0.0:8080` (backend) and `0.0.0.0:80` (frontend) are used. The Google Cloud maps this ports to the port `0.0.0.0:80`.
 
 ## VIII. Concurrency
 

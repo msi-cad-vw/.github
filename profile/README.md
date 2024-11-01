@@ -97,3 +97,43 @@ To setup the object storage (buckets), the following steps have to be done:
    2. Set the secret as a volume: https://cloud.google.com/run/docs/configuring/services/secrets#console
    3. Optional: Set an environment variable to the volume
    4. Link the Service account to the `gcloud-volume` path: `mnt/secret/msi-cad-vw-secret`
+
+
+### Steps to setup a new dev-project
+1. Enable APIs
+   1. Cloud Resource Manager API: https://console.cloud.google.com/apis/api/cloudresourcemanager.googleapis.com/metrics?project=msi-cad-vw-staging
+   2. Docker and Artifact Registry API: https://console.cloud.google.com/apis/library/artifactregistry.googleapis.com?project=msi-cad-vw-staging
+         ```bash
+         gcloud services enable artifactregistry.googleapis.com
+         gcloud artifacts repositories create docker-repo --repository-format=docker --location=europe-west1 --description="Docker repository for msi-cad-vw-staging"
+         gcloud auth configure-docker europe-west1-docker.pkg.dev
+         gcloud services enable run.googleapis.com
+         ```
+   3. 
+2. Setup service-account for the new project
+   - `gcloud iam service-accounts create msi-cad-vw-staging-account`
+   - `gcloud iam service-accounts keys create complaint-images-read-key.json --iam-account msi-cad-vw-staging-account@msi-cad-vw-staging.iam.gserviceaccount.com`
+   - `gcloud auth login`
+   - `gcloud projects add-iam-policy-binding msi-cad-vw-staging --member="serviceAccount:msi-cad-vw-staging-account@msi-cad-vw-staging.iam.gserviceaccount.com" --role="roles/owner"`
+   - `gcloud auth activate-service-account msi-cad-vw-staging-account@msi-cad-vw-staging.iam.gserviceaccount.com --key-file=./complaint-images-read-key.json`
+3. Setup firestore database (in Console)
+   1. Create DB
+      - Name: `(default)`
+      - Region: `europe-west1 (Belgium)`
+   2. Configure DB
+      1. Add Collection: `defects`
+      2. Add first object with "GUID" as Document-ID and a correct `defects`-entry
+4. Setup Bucket
+   1. Create Bucket: `gcloud storage buckets create gs://msi-cad-vw-staging-bucket --project=msi-cad-vw-staging --default-storage-class=STANDARD --location=europe-west1`
+5. Start container within the new project
+6. Add secret
+   1. Enable Secret Manager API
+   2. Add secret wit JSON-File and Name: "msi-cad-vw-secret"
+   3. Add Secret as Volume-Secret to "msi-ca-vw-secret"
+   4. Add Mount-Path to Secret-Volume
+
+Env-Variable:
+- Firestore-DB Path
+- Firestore-DB Name: (default)
+- Bucket-Name: msi-cad-vw-staging-bucket
+- Bucket-Path
