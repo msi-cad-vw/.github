@@ -119,3 +119,6 @@ A service only logs a message through its built-in logging mechanism and the res
 Any changes to the database are handled through code in the Backend Service.
 A manual interception by using, for example, the web interface, is not permitted.
 Likewise, access to any administrative features is restricted to certain people only.
+
+The service-account, used to manage the application, has only the rights, it needs. 
+There are different service-accounts for the `production` and `staging`-environment. 
