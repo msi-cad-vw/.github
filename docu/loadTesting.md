@@ -12,7 +12,7 @@ The first load test is the **Continuously Changing Workload** test, a dynamic ap
 
 ### Load Test
 
-In this test, we introduced different numbers of users to our web page at varying ramp-up intervals to assess how our application would respond under changing loads. This approach allowed us to observe the system's performance and stability as user traffic gradually increased, providing insight into how well the application handles surges in activity and adapts to fluctuating demands.
+In this test, we introduced different numbers of users to our web page at varying ramp-up intervals to assess how our application would respond under changing loads. This approach allowed us to observe the system's performance and stability as user traffic gradually increased, providing insight into how well the application handles surges in activity and adapts to fluctuating demands. We tested with user counts ranging from 50 to 10,000 and ramp-up times between 5 and 100 seconds.
 
 ### Results
 
