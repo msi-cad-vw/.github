@@ -90,9 +90,6 @@ The second-to-last graph illustrates the container startup latency, featuring th
 
 ![Google Cloud Settings for load balancer](Loadbalancingparameter.png)
 
-
-Here’s a rewritten version of your observation, along with an interpretation:
-
 In the Google Cloud settings, we observe a concurrency limit set to 80, which is consistent with our load test results that consistently peak at this level but do not exceed it.
 
 Additionally, the configuration includes autoscaling with a maximum revision instance limit of three. This setting is also reflected in our load testing outcomes, where the container count peaks at three instances, but never exceeds that number.
