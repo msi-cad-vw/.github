@@ -16,7 +16,7 @@ In this test, we introduced different numbers of users to our web page at varyin
 
 ### Results
 
-![Request count, request latencies and container instance count](changingWorkload1.png)
+![Request count, request latencies and container instance count](img/changingWorkload1.png)
 
 Here, we present four graphs that visualize the results from our continuously changing workload test, focusing on Request Count, Request Latencies, Container Instance Count, and Billable Container Instance Time.
 
@@ -28,7 +28,7 @@ The third graph visualizes the container instance count, displaying two distinct
 
 The fourth and final graph illustrates the billable container instance time, revealing how costs are associated with user activity on our web application. The graph’s rise during periods of increased user traffic indicates that resource utilization directly correlates with demand, reflecting the operational costs incurred during high-traffic moments. Notably, the peak of 0.7 s/s suggests that while resource usage is efficient, there is a cap on the billable time per instance.
 
-![Container CPU utilization, Container Memory utilization, sent bytes and received bytes](changingWorkload2.png)
+![Container CPU utilization, Container Memory utilization, sent bytes and received bytes](img/changingWorkload2.png)
 
 These four graphs illustrate the results related to Container CPU Utilization, Container Memory Utilization, Sent Bytes, and Received Bytes.
 
@@ -38,7 +38,7 @@ The second graph illustrates Container Memory Utilization, featuring three diffe
 
 The third and fourth graphs display the sent and received bytes during the load test, categorized into three sources: Google, Internet, and Private. The data indicates that as the user count increases, the sent bytes from the Internet source also rise significantly, while the sent bytes from Google and Private sources remain at zero throughout the test. Notably, there were no received bytes recorded for any of the three sources — Google, Internet, or Private — at any point during the load test.
 
-![Max concurrent request and container setup latency](changingWorkload3.png)
+![Max concurrent request and container setup latency](img/changingWorkload3.png)
 
 The final two graphs illustrate the results of the continuously changing workload test, focusing on the maximum number of concurrent requests and the latency associated with container startup.
 
@@ -56,7 +56,7 @@ In this test, we introduced a large number of users while accelerating the ramp-
 
 ### Results
 
-![Request count, request latencies and container instance count](onceInALife1.png)
+![Request count, request latencies and container instance count](img/onceInALife1.png)
 
 Here, we present four graphs that visualize the results from our Once-in-a-lifetime Workload test, focusing on Request Count, Request Latencies, Container Instance Count, and Billable Container Instance Time.
 
@@ -68,7 +68,7 @@ The third graph illustrates the container instance count, distinguishing between
 
 The fourth graph displays the billable container instance time, showing an increase that peaks at 0.7 s/s as the user count rises. Following this peak, the time decreases to nearly zero before rising again to just under 0.5 s/s. The pattern observed in the billable container instance time indicates a direct correlation with user demand. The peak of 0.7 s/s suggests that when user activity increases, the billable time for container instances also rises, likely due to higher resource utilization as more containers are activated to handle the load.
 
-![Container CPU utilization, Container Memory utilization, sent bytes and received bytes](onceInALife2.png)
+![Container CPU utilization, Container Memory utilization, sent bytes and received bytes](img/onceInALife2.png)
 
 These four graphs illustrate the results related to Container CPU Utilization, Container Memory Utilization, Sent Bytes, and Received Bytes.
 
@@ -78,7 +78,7 @@ The second graph depicts container memory utilization, highlighting three differ
 
 The third and fourth graphs illustrate the sent and received bytes from three sources: Google, Internet, and Private. The data indicates that the sent bytes from the Internet source increase as the user count rises, reaching a peak of 370 bytes per second. Following this peak, the sent bytes drop to 100 bytes per second, then rise again to 200 bytes per second before ultimately falling to zero. In contrast, both Google and Private sources consistently show zero sent bytes throughout the entire observation period. Additionally, none of the sources register any received bytes, with all metrics remaining at zero. The observed trends in sent bytes highlight the Internet source's responsiveness to increasing user demand, effectively handling traffic spikes and demonstrating an ability to transmit significant data volumes. However, the subsequent decline to zero suggests a potential drop in user activity or a failure to maintain data transmission.
 
-![Max concurrent request and container setup latency](onceInALife3.png)
+![Max concurrent request and container setup latency](img/onceInALife3.png)
 
 The final two graphs illustrate the results of the once-in-a-lifetime workload test, focusing on the maximum number of concurrent requests and the latency associated with container startup.
 
@@ -88,7 +88,7 @@ The second graph illustrates the container startup latency, featuring three diff
 
 ## Google Cloud Settings
 
-![Google Cloud Settings for load balancer](Loadbalancingparameter.png)
+![Google Cloud Settings for load balancer](img/Loadbalancingparameter.png)
 
 In the Google Cloud settings, we observe a concurrency limit set to 80, which is consistent with our load test results that peak at this level but do not exceed it.
 
