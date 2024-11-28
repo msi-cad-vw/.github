@@ -43,7 +43,7 @@
 - **Free**: No Price, Best Effort, No Customisation, Shared
   - Parkhaus konfigurieren + Einfahrten / Ausfahrten
   - Keine separaten Datentrennung
-  - *Beschränkungen*:
+  - *Beschränkungen in Applikation*:
     - nicht alle APIs der Terminals werden unterstützt
     - nur ein Parkhaus
     - kein E-Charging möglich
@@ -53,6 +53,9 @@
     - Festpreis für immer
     - begrenzte Anzahl an Parkplätzen
     - keine Reports möglich
+  - *Hardware Beschränkung*
+    - alle Tenants von Free teilen sich die gleichen Datenbanken/Collections
+    - 
 - **Standard**: Attractive Price, SLA, Few Customisation, Shared/Pooled
   - Mehrere Parkhäuser
   - Defekt-Verwaltung
@@ -67,5 +70,7 @@
   - Alle Features der Anwendung
   - Customization (Farbgebung Frontend (own colors))
   - Datentrennung
+  - Parkhäuser werden auf "visitor"-Seite oben angezeigt
   - Trennung von Datenbanken und Services für jeden Tentant
+  - 
  
