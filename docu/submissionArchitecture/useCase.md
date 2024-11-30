@@ -55,7 +55,7 @@
     - keine Reports möglich
   - *Hardware Beschränkung*
     - alle Tenants von Free teilen sich die gleichen Datenbanken/Collections
-    - 
+
 - **Standard**: Attractive Price, SLA, Few Customisation, Shared/Pooled
   - Mehrere Parkhäuser
   - Defekt-Verwaltung
@@ -66,11 +66,10 @@
     - Unterstützung nicht für alle Terminals möglich
     - keine Reservierungen möglich
     - Defekt Mangement: geringere Freiheiten (bspw. kein Status, keine Kommentare, keine Nutzer-Feedbacks)
+  
 - **Enterprise**: Premium Price, SLA, Highly Customisable, High Isolation
   - Alle Features der Anwendung
   - Customization (Farbgebung Frontend (own colors))
   - Datentrennung
   - Parkhäuser werden auf "visitor"-Seite oben angezeigt
   - Trennung von Datenbanken und Services für jeden Tentant
-  - 
- 

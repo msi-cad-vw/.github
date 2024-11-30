@@ -1,4 +1,4 @@
-# Parking Management Cloud Application
+# Parking Management Cloud Application  [DEPRECATED]
 
 This PaaS application was built as part of the lecture "Cloud Application Development" at HTWG Konstanz.
 A demo version is available [on Google Cloud](https://msi-cad-vw-frontend-103924362067.europe-west1.run.app).
