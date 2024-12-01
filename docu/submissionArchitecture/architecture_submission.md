@@ -127,3 +127,8 @@ There are three types of tenants with different features
 | Databases                  | one collection (per service) for all customers| one collection<br>(per tenant)                         | dedicated database |
 | Scaling                    | barely scaled                                 | scaled                                                 | very well scaled   |
 | Shared resources           | all                                           | all, except databases have dedicated collections       | none               |
+
+
+### Tenants in Hardware
+
+<img src="./img/tenants.png" width="80%">
