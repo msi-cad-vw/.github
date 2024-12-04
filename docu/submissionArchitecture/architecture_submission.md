@@ -4,11 +4,11 @@
 
 ### System Context
 
-<img src="./img/systemContext_diagram.png" width="80%">
+<img src="./img/systemContext_diagram.png" width="50%">
 
 ### Use Case Diagram - Frontend Parking Management
 
-<img src="./img/useCase_diagram_UI.png" width="80%">
+<img src="./img/useCase_diagram_UI.png" width="60%">
 
 #### Actors
 
@@ -61,7 +61,7 @@ In this case, the visitor wants to do the following things:
 
 In the following diagram, all services are listed.
 
-<img src="./img/componentsDiagram.png" width="80%">
+<img src="./img/componentsDiagram.png" width="60%">
 
 The components are:
 
@@ -78,21 +78,32 @@ The components are:
 Each microservice has a plan for data structure and stored data in the database.
 Reference the image below for detailed information.
 
-<img src="./img/database_diagram.png" width="80%">
+<img src="./img/database_diagram.png" width="60%">
 
 ### Sequence
 
 #### User enters parking garage
 
-<img src="./img/sequence_diagram_1.png" width="80%">
+<img src="./img/sequence_diagram_1.png" width="60%">
 
 #### User uses the terminal
 
-<img src="./img/sequence_diagram_2.png" width="80%">
+<img src="./img/sequence_diagram_2.png" width="60%">
 
 #### User leaves the parking garage
 
-<img src="./img/sequence_diagram_3.png" width="80%">
+<img src="./img/sequence_diagram_3.png" width="60%">
+
+
+### Asynchronous: Generate reports
+
+<img src="./img/sequence_diagram_4.png" width="30%">
+
+### Asynchronous: Show occupancy
+
+<img src="./img/sequence_diagram_5.png" width="30%">
+
+
 
 ## Multi Tenancy
 
@@ -131,4 +142,4 @@ There are three types of tenants with different features
 
 ### Tenants in Hardware
 
-<img src="./img/tenants.png" width="80%">
+<img src="./img/tenants.png" width="60%">
