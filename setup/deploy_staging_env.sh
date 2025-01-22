@@ -11,7 +11,7 @@ gcloud auth activate-service-account $SERVICE_ACCOUNT --key-file=./keys/key-msi-
 # To update your Application Default Credentials quota project, use the `gcloud auth application-default set-quota-project` command.
 
 # Create defect-management-api
-docker build --tag defect-management --file defect-managment/Msi.Cad.DefectManagement/Msi.Cad.DefectManagement/database.Dockerfile defect-management/Msi.Cad.DefectManagement       # Build database
+docker build --tag defect-management --file defect-management/Msi.Cad.DefectManagement/Msi.Cad.DefectManagement.Presentation/defectManagement.Dockerfile defect-management/Msi.Cad.DefectManagement       # Build database
 docker tag defect-management:latest europe-west1-docker.pkg.dev/$PROJECT_ID/docker-repo/defect-management:$VERSION
 docker push europe-west1-docker.pkg.dev/$PROJECT_ID/docker-repo/defect-management:$VERSION
 gcloud run deploy msi-cad-vw-defect-management --image=europe-west1-docker.pkg.dev/$PROJECT_ID/docker-repo/defect-management:$VERSION \
