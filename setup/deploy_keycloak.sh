@@ -1,6 +1,7 @@
 # google cloud project settings
 PROJECT_ID=msi-cad-vw-parking
-SERVICE_ACCOUNT=cr-deploy@msi-cad-vw-parking.iam.gserviceaccount.com 
+SERVICE_ACCOUNT=msi-cad-vw-parking@$PROJECT_ID.iam.gserviceaccount.com
+# SERVICE_ACCOUNT=cr-deploy@msi-cad-vw-parking.iam.gserviceaccount.com 
 
 # configure keycloak
 KEYCLOAK_VERSION=26.0
@@ -33,3 +34,8 @@ gcloud run deploy msi-cad-vw-keycloak --image=europe-west1-docker.pkg.dev/$PROJE
 	--port=8080 \
 	--memory=1Gi \
 	--service-account $SERVICE_ACCOUNT
+
+# Notes of Maren:
+# docker build . --tag keycloak --file keycloak.Dockerfile
+# docker tag keycloak:latest europe-west1-docker.pkg.dev/msi-cad-vw-parkspace/docker-repo/keycloak:latest
+# docker push europe-west1-docker.pkg.dev/msi-cad-vw-parkspace/docker-repo/keycloak:latest

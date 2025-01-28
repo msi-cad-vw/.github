@@ -121,13 +121,11 @@ There are three types of tenants with different features
 | -------------------------- | --------------------------------------------- | ------------------------------------------------------ | ------------------ |
 | Number of parking garages  | 1                                             | 5                                                      | unlimited          |
 | Number of parking spaces   | max. 1000                                     | unlimited                                              | unlimited          |
-| Type of parking spaces     | no special parking spaces                     | Standard, Women, Family, Disabled, E-Parking           | configurable       |
-| Hardware APIs              | limited                                       | most supported                                         | all supported      |
+| Type of parking spaces     | no special parking spaces                     | Standard, Disabled, E-Parking           | Standard, Women, Family, Disabled, E-Parking       |
 | E-Charging                 | -                                             | possible                                               | possible           |
-| Defect management          | -                                             | no status<br>no comments<br>no user feedback           | unlimited          |
-| Reports                    | -                                             | limited                                                | unlimited          |
+| Defect management          | -                                             | no status (frontend only)          | unlimited          |
+| Reports                    | -                                             | limited (e.g. smaller timewindow, less reports)                                                | unlimited          |
 | Roles                      | no Facility Manager                           | all                                                    | all                |
-| Landing-page prioritization| none                                          | medium                                                 | high               |
 | Advertising                | a lot                                         | none                                                   | none               |
 |                            |                                               |                                                        |                    |
 | **Customization**          |                                               |                                                        |                    |
@@ -135,9 +133,9 @@ There are three types of tenants with different features
 | Color scheme               | fixed                                         | color selection                                        | unlimited          |
 |                            |                                               |                                                        |                    |
 | **Hardware**               |                                               |                                                        |                    |
-| Databases                  | one collection (per service) for all customers| one collection<br>(per tenant)                         | dedicated database |
+| Databases                  | one database (per service) for all customers | one database (per service) for all customers                         | dedicated database |
 | Scaling                    | barely scaled                                 | scaled                                                 | very well scaled   |
-| Shared resources           | all                                           | all, except databases have dedicated collections       | none               |
+| Shared resources           | all                                           | all       | none               |
 
 
 ### Tenants in Hardware

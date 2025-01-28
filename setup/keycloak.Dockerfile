@@ -10,6 +10,7 @@ RUN /opt/keycloak/bin/kc.sh build
 FROM quay.io/keycloak/keycloak:latest
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
+# ENV KC_HOSTNAME=keycloak
 ENV KC_HOSTNAME=https://msi-cad-vw-keycloak-768187275150.europe-west1.run.app
 ENV KC_HOSTNAME_STRICT=false
 ENV KC_HTTP_ENABLED=true
