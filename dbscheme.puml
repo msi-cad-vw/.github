@@ -1,0 +1,225 @@
+@startuml
+' verstecke das E im Entitäten-Titel
+hide circle
+
+' verhindere Probleme mit gewinkelten Krähenfüßen
+skinparam linetype ortho
+
+entity "ParkingGarage" as garage #FFBDBD {
+  *Id: Guid <<generated>>
+  ---
+  *Address : string
+  *Gps : (float,float)
+  *OwnerId : Guid <<FK>>
+  *OrganizationId : Guid <<FK>>
+  *FacilityManagerIds : List<Guid> <<FK>>
+  *ContactInfo : string
+  *OpeningHours : (TimeOnly,TimeOnly)
+  *MaxHeight : double
+  *Floors : int
+  *Spots : List<ParkingSpot>
+  *TotalSpots : int
+  *UsedSpots : int
+  *ECharging : bool
+  *Accessibility : bool
+  *ParkingCosts : List<ParkingCost>
+  *MaximumDailyRate : double
+}
+
+entity "TimeRange" as tr #FFBDBD {
+  *Start : TimeOnly
+  *End : TimeOnly
+}
+
+entity "ParkingCost" as cost #FFBDBD {
+  *ValidDays : Enum<Weekdays>
+  *ValidHours : TimeRange
+  *Name : string
+  *BaseHourlyPrice : double
+  *AdditionalHourlyPrice : double
+}
+
+entity "ParkingSpot" as spot #FFBDBD {
+  *Capacity : int
+  *Type : ParkingSpotType
+  *Name : string
+}
+
+entity "GpsCoordinates" as gps #FFBDBD {
+  *Latitute : double
+  *Longitude : double
+}
+
+entity "User" as user #BDFFBD {
+  *Id : Guid <<generated>>
+  ---
+  *OrganizationId : Guid
+  *Role : Enum<OrganizationRole>
+  *TenantType : Enum<OrganizationType>
+}
+
+entity "Organization" as org #BDFFBD {
+  *Id : Guid <<generated>>
+  ---
+  *Name : string
+  *Type : Enum<OrganizationType>
+  *Color : string
+  *UserAdminId : Guid <<FK>>
+}
+
+entity "UserOrganizationRequest" as req #BDFFBD {
+  *Id : Guid <<generated>>
+  ---
+  *OrganizationId : Guid <<FK>>
+  *UserId : Guid <<FK>>
+  *SubmitDate : DateTimeOffset
+  *Status : Enum<RequestStatus>
+  *ProccessedDate : DateTimeOffset
+}
+
+entity "Defect" as defect #BDBDFF {
+  *Id : Guid <<generated>>
+  ---
+  *GarageId : Guid <<FK>>
+  *Title : string
+  *Description : string
+  *Date : DateTime
+  *Status : Enum<DefectStatus>
+  *Object : string
+  *Location : string
+  *ImageId : string
+  *LastModified : DateTime
+}
+
+entity "Barrier" as barrier #ffd {
+  *Id : Guid <<generated>>
+  ---
+  *GarageId : Guid <<FK>>
+  *Type : Enum<BarrierType>
+  *BarrierKind : Enum<BarrierKind>
+  *Position : string
+  *Manufacturer : string
+  *LastCheck : DateTime
+  *Checker : string
+  *Status : Enum<PropertyStatus>
+  *TotalDriveThrough : int
+}
+
+entity "EchargingTerminal" as echarge #ffd {
+  *Id : Guid <<generated>>
+  ---
+  *GarageId : Guid <<FK>>
+  *Position : string
+  *Manufacturer : string
+  *LastCheck : DateTime
+  *Checker : string
+  *Status : Enum<PropertyStatus>
+  *InUse : bool
+}
+
+entity "PaymentTerminal" as payment #ffd {
+  *Id : Guid <<generated>>
+  ---
+  *GarageId : Guid <<FK>>
+  *PaymentKind : Enum<PaymentKind>
+  *TerminalKind : Enum<TerminalKind>
+  *CashAmount : float
+  *Earnings : float
+  *Position : string
+  *Manufacturer : string
+  *LastCheck : DateTime
+  *Checker : string
+  *Status : Enum<PropertyStatus>
+}
+
+entity "Visit" as visit #fdf {
+  *Id : Guid <<generated>>
+  ---
+  *GarageId : Guid <<FK>>
+  *EntryTime : DateTimeOffset
+  *EntryBarrierId : Guid <<FK>>
+  *ExitTime : DateTimeOffset
+  *ExitBarrierId : Guid <<FK>>
+  *IsPaid : bool
+  *PaidType : Enum<PaymentType>
+  *PaidAmount : double
+  *PaidTerminalId : Guid <<FK>>
+}
+
+entity "Status" as status #fdf {
+  *Id : Guid <<generated>>
+  ---
+  *GarageId : Guid <<FK>>
+  *UsedSpots : int
+  *Occupancy : float
+  *Earnings : double
+  *TotalDriveIn : int
+  *TotalDriveOut : int
+  *EarnedMoney : double
+}
+
+entity "Report" as report #fdf {
+  *Id : Guid
+  ---
+  *GarageId : Guid <<FK>>
+  *CreationDate : DateTime
+  *PeakTimes : List<HourlyOccupancy>
+  *AverageDurationOfStay : double
+  *BarrierUsage : List<PropertyUsage>
+  *TerminalUsage : List<PropertyUsage>
+  *PaymentTypeUsage : List<PaymentTypeUsage>
+}
+
+entity "HourlyOccupancy" as hourly #fdf {
+  *Hour : int
+  ---
+  *Occupancy : double
+}
+
+entity "PropertyUsage" as property #fdf {
+  *Id : Guid <<generated>>
+  ---
+  *Count : int
+}
+
+entity "PaymentTypeUsage" as payment #fdf {
+  *Id : Enum<PaymentType>
+  ---
+  *Count : int
+}
+
+entity "Echarge" #fdf {
+  *Id : Guid <<generated>>
+  ---
+  *Start : DateTimeOffset
+  *End : DateTimeOffset
+  *Duration : TimeSpan
+  *TerminalId : Guid
+  *TotalEnergy : double
+}
+
+garage --|{ tr
+garage --|{ cost
+garage --|{ spot
+garage --|| gps
+cost --|| tr
+garage }|..|| user
+garage ||..|| org
+
+org ||--|{ user
+user ||--|{ req
+org ||--|{ req
+
+defect }|..|| garage
+
+barrier }|..|| garage
+echarge }|..|| garage
+payment }|..|| garage
+
+visit }|..|| garage
+status }|..|| garage
+report }|..|| garage
+report ||--|{ hourly
+report ||--|{ property
+report ||--|{ payment
+@enduml
