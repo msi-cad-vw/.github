@@ -182,7 +182,7 @@ entity "PropertyUsage" as property #fdf {
   *Count : int
 }
 
-entity "PaymentTypeUsage" as payment #fdf {
+entity "PaymentTypeUsage" as paymenttype #fdf {
   *Id : Enum<PaymentType>
   ---
   *Count : int
@@ -221,5 +221,5 @@ status }|..|| garage
 report }|..|| garage
 report ||--|{ hourly
 report ||--|{ property
-report ||--|{ payment
+report ||--|{ paymenttype
 @enduml
