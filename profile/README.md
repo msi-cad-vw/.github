@@ -18,4 +18,4 @@ Also part of the backend is a NoSQL database, hosted by Google Cloud Firestore.
 
 ![System Architecture](architecture_cloud.png)
 
-More details are availbale in the detailled documentation: [Documentation](Cloud_submission.pdf)
+More details are availbale in the detailled documentation: [Documentation](../submissions/Cloud_final_submission.pdf)
